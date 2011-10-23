@@ -18,6 +18,10 @@
 /* The normal alignment of `double', in bytes. */
 #undef ALIGNOF_DOUBLE
 
+/* The normal alignment of `double' for use with SIMD operations (AltiVec,
+   SSE, ...), in bytes. */
+#undef ALIGNOF_VECTOR
+
 /* The normal alignment of `int', in bytes. */
 #undef ALIGNOF_INT
 

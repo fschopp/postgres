@@ -292,7 +292,7 @@ TypeCreate(Oid newTypeOid,
 	else
 	{
 		/* varlena types must have int align or better */
-		if (internalSize == -1 && !(alignment == 'i' || alignment == 'd'))
+		if (internalSize == -1 && !(alignment == 'i' || alignment == 'd' || alignment == 'v'))
 			ereport(ERROR,
 					(errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
 			   errmsg("alignment \"%c\" is invalid for variable-length type",

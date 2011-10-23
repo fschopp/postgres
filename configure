@@ -27343,18 +27343,19 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
+# FIXME: Should not be hardcoded here. This is always >= $ac_cv_alignof_double
+ac_cv_alignof_vector=16
+
+cat >>confdefs.h <<_ACEOF
+#define ALIGNOF_VECTOR $ac_cv_alignof_vector
+_ACEOF
+
 
 # Compute maximum alignment of any basic type.
 # We assume long's alignment is at least as strong as char, short, or int;
 # but we must check long long (if it exists) and double.
 
-MAX_ALIGNOF=$ac_cv_alignof_long
-if test $MAX_ALIGNOF -lt $ac_cv_alignof_double ; then
-  MAX_ALIGNOF=$ac_cv_alignof_double
-fi
-if test x"$HAVE_LONG_LONG_INT_64" = xyes && test $MAX_ALIGNOF -lt $ac_cv_alignof_long_long_int ; then
-  MAX_ALIGNOF="$ac_cv_alignof_long_long_int"
-fi
+MAX_ALIGNOF=$ac_cv_alignof_vector
 
 cat >>confdefs.h <<_ACEOF
 #define MAXIMUM_ALIGNOF $MAX_ALIGNOF

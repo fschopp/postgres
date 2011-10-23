@@ -85,7 +85,8 @@
  * CAUTION: ALLOC_MINBITS must be large enough so that
  * 1<<ALLOC_MINBITS is at least MAXALIGN,
  * or we may fail to align the smallest chunks adequately.
- * 8-byte alignment is enough on all currently known machines.
+ * 16-byte alignment is enough on all currently known machines, even with SIMD
+ * instruction sets (SSE, AltiVec, ...).
  *
  * With the current parameters, request sizes up to 8K are treated as chunks,
  * larger requests go into dedicated blocks.  Change ALLOCSET_NUM_FREELISTS
@@ -95,7 +96,7 @@
  *--------------------
  */
 
-#define ALLOC_MINBITS		3	/* smallest chunk size is 8 bytes */
+#define ALLOC_MINBITS		4	/* smallest chunk size is 16 bytes */
 #define ALLOCSET_NUM_FREELISTS	11
 #define ALLOC_CHUNK_LIMIT	(1 << (ALLOCSET_NUM_FREELISTS-1+ALLOC_MINBITS))
 /* Size of largest chunk that we use a fixed size for */

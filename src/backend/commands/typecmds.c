@@ -365,6 +365,9 @@ DefineType(List *names, List *parameters)
 			pg_strcasecmp(a, "float8") == 0 ||
 			pg_strcasecmp(a, "pg_catalog.float8") == 0)
 			alignment = 'd';
+		else if (pg_strcasecmp(a, "_float8") == 0 ||
+				 pg_strcasecmp(a, "pg_catalog._float8") == 0)
+			alignment = 'v';
 		else if (pg_strcasecmp(a, "int4") == 0 ||
 				 pg_strcasecmp(a, "pg_catalog.int4") == 0)
 			alignment = 'i';
@@ -579,7 +582,7 @@ DefineType(List *names, List *parameters)
 	array_type = makeArrayTypeName(typeName, typeNamespace);
 
 	/* alignment must be 'i' or 'd' for arrays */
-	alignment = (alignment == 'd') ? 'd' : 'i';
+	alignment = (alignment == 'v') ? 'v' : ((alignment == 'd') ? 'd' : 'i');
 
 	TypeCreate(array_oid,		/* force assignment of this type OID */
 			   array_type,		/* type name */

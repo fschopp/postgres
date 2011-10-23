@@ -926,7 +926,7 @@ AddNewRelationType(const char *typeName,
 				   NULL,		/* default value - none */
 				   NULL,		/* default binary representation */
 				   false,		/* passed by reference */
-				   'd',			/* alignment - must be the largest! */
+				   'v',			/* alignment - must be the largest! */
 				   'x',			/* fully TOASTable */
 				   -1,			/* typmod */
 				   0,			/* array dimensions for typBaseType */
@@ -1177,7 +1177,7 @@ heap_create_with_catalog(const char *relname,
 				   NULL,		/* default value - none */
 				   NULL,		/* default binary representation */
 				   false,		/* passed by reference */
-				   'd',			/* alignment - must be the largest! */
+				   'v',			/* alignment - must be the largest! */
 				   'x',			/* fully TOASTable */
 				   -1,			/* typmod */
 				   0,			/* array dimensions for typBaseType */

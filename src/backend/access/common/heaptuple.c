@@ -24,9 +24,9 @@
  * that have been put into a tuple but never sent to disk.	Hopefully there
  * are few such places.
  *
- * Varlenas still have alignment 'i' (or 'd') in pg_type/pg_attribute, since
- * that's the normal requirement for the untoasted format.  But we ignore that
- * for the 1-byte-header format.  This means that the actual start position
+ * Varlenas still have alignment 'i' (or 'd' or 'v') in pg_type/pg_attribute,
+ * since that's the normal requirement for the untoasted format.  But we ignore
+ * that for the 1-byte-header format.  This means that the actual start position
  * of a varlena datum may vary depending on which format it has.  To determine
  * what is stored, we have to require that alignment padding bytes be zero.
  * (Postgres actually has always zeroed them, but now it's required!)  Since
@@ -653,7 +653,7 @@ heap_form_tuple(TupleDesc tupleDescriptor,
 	 *
 	 * We can skip calling toast_flatten_tuple_attribute() if the attribute
 	 * couldn't possibly be of composite type.  All composite datums are
-	 * varlena and have alignment 'd'; furthermore they aren't arrays. Also,
+	 * varlena and have alignment 'v'; furthermore they aren't arrays. Also,
 	 * if an attribute is already toasted, it must have been sent to disk
 	 * already and so cannot contain toasted attributes.
 	 */
@@ -662,7 +662,7 @@ heap_form_tuple(TupleDesc tupleDescriptor,
 		if (isnull[i])
 			hasnull = true;
 		else if (att[i]->attlen == -1 &&
-				 att[i]->attalign == 'd' &&
+				 att[i]->attalign == 'v' &&
 				 att[i]->attndims == 0 &&
 				 !VARATT_IS_EXTENDED(DatumGetPointer(values[i])))
 		{
@@ -1405,7 +1405,7 @@ heap_form_minimal_tuple(TupleDesc tupleDescriptor,
 	 *
 	 * We can skip calling toast_flatten_tuple_attribute() if the attribute
 	 * couldn't possibly be of composite type.  All composite datums are
-	 * varlena and have alignment 'd'; furthermore they aren't arrays. Also,
+	 * varlena and have alignment 'v'; furthermore they aren't arrays. Also,
 	 * if an attribute is already toasted, it must have been sent to disk
 	 * already and so cannot contain toasted attributes.
 	 */
@@ -1414,7 +1414,7 @@ heap_form_minimal_tuple(TupleDesc tupleDescriptor,
 		if (isnull[i])
 			hasnull = true;
 		else if (att[i]->attlen == -1 &&
-				 att[i]->attalign == 'd' &&
+				 att[i]->attalign == 'v' &&
 				 att[i]->attndims == 0 &&
 				 !VARATT_IS_EXTENDED(values[i]))
 		{

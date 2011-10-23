@@ -146,10 +146,11 @@
 	((attalign) == 'i') ? INTALIGN(cur_offset) : \
 	 (((attalign) == 'c') ? (intptr_t) (cur_offset) : \
 	  (((attalign) == 'd') ? DOUBLEALIGN(cur_offset) : \
-	   ( \
+	   (((attalign) == 'v') ? VECTORALIGN(cur_offset) : \
+	     ( \
 			AssertMacro((attalign) == 's'), \
 			SHORTALIGN(cur_offset) \
-	   ))) \
+	     )))) \
 )
 
 /*
